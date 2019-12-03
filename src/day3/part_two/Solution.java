@@ -1,17 +1,13 @@
-package Day3.PartTwo;
+package day3.part_two;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
 
 public class Solution {
     static Scanner scanner;
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        File file = new File("C:\\Users\\owolska\\Documents\\Google\\AdventOfCode2019\\src\\Day3\\input3.txt");
-        scanner = new Scanner(file);
+    public static void main(String[] args) {
+        scanner = new Scanner(Solution.class.getResourceAsStream("../input3.txt"));
         HashSet<Coordinates> firstWire = makeSet(scanner.nextLine());
         HashSet<Coordinates> secondWire = makeSet(scanner.nextLine());
 

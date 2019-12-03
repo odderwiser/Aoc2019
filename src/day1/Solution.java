@@ -1,16 +1,13 @@
-package Day1;
+package day1;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Solution {
     static Scanner scanner;
 
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("C:\\Users\\owolska\\Documents\\Google\\AdventOfCode2019\\src\\Day1\\input.txt");
-        scanner = new Scanner(file);
+    public static void main(String[] args) {
+        scanner = new Scanner(Solution.class.getResourceAsStream("input.txt"));
         int result = 0;
         int fuel = 0;
         while(scanner.hasNext()) {

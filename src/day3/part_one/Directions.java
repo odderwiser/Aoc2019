@@ -1,6 +1,6 @@
-package Day3.PartOne;
+package day3.part_one;
 
-import Day3.Dir;
+import day3.Dir;
 
 import java.util.HashSet;
 

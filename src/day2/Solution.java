@@ -1,16 +1,12 @@
-package Day2;
+package day2;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Solution {
     static Scanner scanner;
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        File file = new File("C:\\Users\\owolska\\Documents\\Google\\AdventOfCode2019\\src\\Day2\\input2.txt");
-        scanner = new Scanner(file);
+    public static void main(String[] args) {
+        scanner = new Scanner(Solution.class.getResourceAsStream("input2.txt"));
         String[] stringcode = scanner.nextLine().split(",");
         Integer[] intcode = new Integer[stringcode.length];
         for (int i = 0; i < intcode.length; i++) {
@@ -28,8 +24,6 @@ public class Solution {
                 if (result==19690720) {
                     System.out.println((100*i+j));
                     break;
-                } else {
-                    System.out.println(result+" didn't work");
                 }
             }
         }

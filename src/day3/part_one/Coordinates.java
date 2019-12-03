@@ -1,4 +1,4 @@
-package Day3.PartOne;
+package day3.part_one;
 
 import java.util.Objects;
 
