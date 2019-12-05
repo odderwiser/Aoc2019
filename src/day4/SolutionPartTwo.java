@@ -7,6 +7,7 @@ import java.util.LinkedList;
 public class SolutionPartTwo {
 
     public static void main(String[] args) throws IOException {
+        long time = System.currentTimeMillis();
         //define the lower and upper range of password
         String lower = "246515";
         String higher = "739105";
@@ -36,6 +37,7 @@ public class SolutionPartTwo {
 
         //print results
         System.out.println(result);
+        System.out.println(System.currentTimeMillis() - time);
         System.in.read();
     }
 
