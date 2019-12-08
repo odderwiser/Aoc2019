@@ -14,6 +14,6 @@ public class Part2Test {
                 27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5};
         LinkedList<Integer> combination = new LinkedList<>(Arrays.asList(9,8,7,6,5));
         int result = part2.checkCombination(combination, input);
-        Assertions.assertEquals(result, 139629729);
+        Assertions.assertEquals( 139629729, result);
     }
 }

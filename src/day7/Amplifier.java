@@ -25,10 +25,8 @@ public class Amplifier {
             i++;
             i = command.execute(i);
             if (result.check()) {
-                System.out.println("new amplifier "+result.isFinished());
                 return result;
             }
-            System.out.println("Now i is: "+i);
         }
         return result;
     }

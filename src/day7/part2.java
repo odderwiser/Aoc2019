@@ -40,20 +40,31 @@ public class part2 {
     }
 
     static int checkCombination(LinkedList<Integer> code, Integer[] intcode) {
+        //the list of amplifiers
         LinkedList<Amplifier> amplifiers = new LinkedList<>();
+        //output of every amplifier
         int output = 0;
+        //output of 5th amplifier
         int totalOutput = 0;
+        //holds results
         ResultTuple result = new ResultTuple();
+
+        //first iteration over amplifiers
         for (Integer value : code) {
+            //generate two input values
             LinkedList<Integer> input = new LinkedList<>(Arrays.asList(value, output));
+            //add a new amplifier to the list with new instruction set
             amplifiers.add(new Amplifier(intcode.clone()));
+            //get the first output from the amplifier
             result = amplifiers.getLast().solve(input);
             if (result.isFinished()) {
                 return totalOutput;
             }
             totalOutput = result.get();
         }
+        //next iterations over amplifiers
         while (!result.isFinished()) {
+
             for (int i = 0; i < 5; i++) {
                 Amplifier amp = amplifiers.get(i);
                 LinkedList<Integer> input = new LinkedList<>(Collections.singletonList(output));
@@ -63,7 +74,7 @@ public class part2 {
                 }
                 output = result.get();
             }
-            totalOutput = result.get();
+            totalOutput = output;
         }
         return totalOutput;
     }
