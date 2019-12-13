@@ -21,10 +21,11 @@ public class part2 {
 
     }
 
-    //ok więc? każdy amplifier ma dwa wejścia. I trzeba zrobić solve 5 razy, za każdym razem dwa inputy:
-    //input z tabelki i input będacy outputem.
-
-
+    /**
+     * finds the max output from all input combinations
+     * @param combinations - list of possible inputs
+     * @return -the highest ouptut
+     */
     private static int getMax(LinkedList<LinkedList<Integer>> combinations) {
         //the highest value from all combinations
         int result = Integer.MIN_VALUE;
@@ -39,6 +40,12 @@ public class part2 {
         return result;
     }
 
+    /**
+     * Method to check the output of single combination
+     * @param code - combination of input digits
+     * @param intcode - instruction set
+     * @return
+     */
     static int checkCombination(LinkedList<Integer> code, Integer[] intcode) {
         //the list of amplifiers
         LinkedList<Amplifier> amplifiers = new LinkedList<>();
@@ -60,15 +67,20 @@ public class part2 {
             if (result.isFinished()) {
                 return totalOutput;
             }
-            totalOutput = result.get();
+            output = result.get();
         }
+        totalOutput = output;
         //next iterations over amplifiers
         while (!result.isFinished()) {
 
             for (int i = 0; i < 5; i++) {
+                //retrieve new amplifier
                 Amplifier amp = amplifiers.get(i);
+                //set input as the output of previous amplifier
                 LinkedList<Integer> input = new LinkedList<>(Collections.singletonList(output));
+                //retrieve next output or reach 99
                 result = amp.solve(input);
+                //if 99 was reached, return previously saved output of amplifier 5
                 if (result.isFinished()) {
                     return totalOutput;
                 }
