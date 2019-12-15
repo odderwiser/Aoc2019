@@ -10,7 +10,6 @@ public class Map {
     HashMap<Coords,  Asteroid> asteroids;
     int xSize;
     int ySize;
-    Asteroid station;
 
     public Map() {
         asteroids = new HashMap<>();
@@ -55,7 +54,7 @@ public class Map {
                 invisible = asteroid.invisible.size();
             }
         }
-        this.station = result;
+        this.asteroids.remove(result.coords);
         return result;
     }
 }

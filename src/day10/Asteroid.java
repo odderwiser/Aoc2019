@@ -35,4 +35,14 @@ public class Asteroid {
         }
     }
 
+    public void setDistance(Asteroid station) {
+        this.coords.setDistance(station.coords);
+    }
+
+    public Coords getDirection(Asteroid other) {
+        Coords result = this.coords.getGcd(other.coords);
+        result.setDistance(other.coords);
+        return result;
+    }
+
 }

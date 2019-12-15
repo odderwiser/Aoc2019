@@ -2,13 +2,15 @@ package day10;
 
 import java.util.Objects;
 
-public class Coords {
+public class Coords implements Comparable<Coords>{
     int x;
     int y;
+    double distance;
 
     public Coords(int x, int y) {
         this.x = x;
         this.y = y;
+        this.distance = 0;
     }
 
     @Override
@@ -53,5 +55,33 @@ public class Coords {
     public void add(Coords other) {
         this.x+=other.x;
         this.y+=other.y;
+    }
+
+    public void setDistance(Coords station) {
+        this.distance = Math.sqrt(Math.pow((this.x - station.x), 2)+ Math.pow((this.y - station.y), 2));
+    }
+
+    public double getRotation() {
+        if ((x >= 0) && (y < 0 )) {
+            return (Math.abs(x)/distance);
+
+        } else if ((x > 0) && (y >= 0)) {
+            return (1 + (Math.abs(y)/distance));
+        } else if ((x <= 0)&& (y > 0)) {
+            return (2+ Math.abs(x)/distance);
+        } else {
+            return (3+ Math.abs(y)/distance);
+        }
+    }
+
+
+    @Override
+    public int compareTo(Coords other) {
+        return Double.compare(this.getRotation(), other.getRotation());
+    }
+
+    @Override
+    public String toString() {
+        return Integer.toString((this.x*100)+this.y);
     }
 }
