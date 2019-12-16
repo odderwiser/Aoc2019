@@ -2,17 +2,28 @@ package day10;
 
 import java.util.Objects;
 
-public class Coords implements Comparable<Coords>{
+/**
+ * Represents two dimentional directions and distance two some center coordinates
+ */
+public class Coords {
     int x;
     int y;
-    double distance;
 
+    /**
+     * Initialise coordinates
+     * @param x - x coordinate
+     * @param y - y coordinate
+     */
     public Coords(int x, int y) {
         this.x = x;
         this.y = y;
-        this.distance = 0;
     }
 
+    /**
+     * Check if this equals other object, based on x and y coordinates.
+     * @param o - Object other.
+     * @return - true if objects are equal, else false.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -27,57 +38,49 @@ public class Coords implements Comparable<Coords>{
         return Objects.hash(x, y);
     }
 
-    public Coords getGcd(Coords other) {
-        Coords result = new Coords(other.x - this.x, other.y - this.y);
+    /**
+     * Get the smallest integer distance vector from here to coords other.
+     * @param other - other asteroid to which the vector is pointing
+     * @return - Coords of vector from here to other.
+     */
+    public Direction getDirection(Coords other) {
+        Direction result = new Direction(other.x - this.x, other.y - this.y);
 
         //if they're on the same line
         if (result.x == 0) {
-            return new Coords(0, Integer.signum(result.y));
+            return new Direction(0, Integer.signum(result.y));
         }
         if (result.y == 0) {
-            return new Coords(Integer.signum(result.x), 0);
+            return new Direction(Integer.signum(result.x), 0);
         }
 
-        int gcd = euclids(Math.abs(result.x), Math.abs(result.y));
+        int gcd = getGCD(Math.abs(result.x), Math.abs(result.y));
         result.x /= gcd;
         result.y /= gcd;
 
         return result;
     }
 
-    private int euclids(int n1, int n2) {
+    /**
+     * Euclids alogrithm for greatest common denominator
+     * @param n1 - number 1
+     * @param n2 - number 2
+     * @return - value of greatest common denominator.
+     */
+    private int getGCD(int n1, int n2) {
         if (n2 == 0) {
             return n1;
         }
-        return euclids(n2, n1 % n2);
+        return getGCD(n2, n1 % n2);
     }
 
-    public void add(Coords other) {
+    /**
+     * Move this coordinates by vector other
+     * @param other - vector to move this coordinates by.
+     */
+    public void add(Direction other) {
         this.x+=other.x;
         this.y+=other.y;
-    }
-
-    public void setDistance(Coords station) {
-        this.distance = Math.sqrt(Math.pow((this.x - station.x), 2)+ Math.pow((this.y - station.y), 2));
-    }
-
-    public double getRotation() {
-        if ((x >= 0) && (y < 0 )) {
-            return (Math.abs(x)/distance);
-
-        } else if ((x > 0) && (y >= 0)) {
-            return (1 + (Math.abs(y)/distance));
-        } else if ((x <= 0)&& (y > 0)) {
-            return (2+ Math.abs(x)/distance);
-        } else {
-            return (3+ Math.abs(y)/distance);
-        }
-    }
-
-
-    @Override
-    public int compareTo(Coords other) {
-        return Double.compare(this.getRotation(), other.getRotation());
     }
 
     @Override

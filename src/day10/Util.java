@@ -31,7 +31,6 @@ public class Util {
 
     public static int getBiggest(Map map) {
         int result = Integer.MAX_VALUE;
-        Asteroid ast;
         for (Asteroid asteroid : map.asteroids.values()) {
             map.checkAsteroid(asteroid);
             result = Math.min(result, asteroid.invisible.size());

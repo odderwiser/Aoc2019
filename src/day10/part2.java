@@ -7,7 +7,7 @@ public class part2 {
         Map map = Util.parseInput("resources/input10.txt");
         System.out.println(map.asteroids.values().size());
         Util.getBiggest(map);
-        Asteroid station = map.setStation();
+        Asteroid station = map.getStation();
         Station stat = new Station(map, station);
         Coords result = destroy(stat, 200);
         System.out.println(result.toString());
