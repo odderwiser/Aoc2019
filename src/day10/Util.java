@@ -18,10 +18,8 @@ public class Util {
                         result.add(new Asteroid(x, y, result));
                     }
                 }
-                result.xSize = row.length;
                 y++;
             }
-            result.ySize = y;
             return result;
         } catch (FileNotFoundException e) {
             System.out.println("you tried");
@@ -32,7 +30,7 @@ public class Util {
     public static int getBiggest(Map map) {
         int result = Integer.MAX_VALUE;
         for (Asteroid asteroid : map.asteroids.values()) {
-            map.checkAsteroid(asteroid);
+            map.setAsteroidInvisibles(asteroid);
             result = Math.min(result, asteroid.invisible.size());
         }
 

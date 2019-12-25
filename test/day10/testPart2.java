@@ -10,22 +10,22 @@ public class testPart2 {
     @Test
     public void test1_4() {
         Map map = Util.parseInput("../resources/input10_1_04.txt");
-        System.out.println(map.xSize+" "+map.ySize);
+        System.out.println(map.sizeX +" "+map.sizeY);
         Util.getBiggest(map);
-        Asteroid station = map.getStation();
+        Asteroid station = map.getAndRemoveStation();
         Station stat = new Station(map, station);
-        Coords result = part2.destroy(stat, 200);
+        Point result = part2.destroyAsteroids(stat, 200);
         Assertions.assertEquals("802", result.toString());
     }
 
     @Test
     public void test2_01() {
         Map map = Util.parseInput("../resources/input10_2_01.txt");
-        System.out.println(map.xSize+" "+map.ySize);
+        System.out.println(map.sizeX +" "+map.sizeY);
         Util.getBiggest(map);
-        Asteroid station = map.getStation();
+        Asteroid station = map.getAndRemoveStation();
         Station stat = new Station(map, station);
-        Coords result = part2.destroy(stat, 1);
+        Point result = part2.destroyAsteroids(stat, 1);
         Assertions.assertEquals("300", result.toString());
     }
 
@@ -44,11 +44,11 @@ public class testPart2 {
     @ParameterizedTest
     public void test2_02(int index, String expected) {
         Map map = Util.parseInput("../resources/input10_2_01.txt");
-        System.out.println(map.xSize+" "+map.ySize);
+        System.out.println(map.sizeX +" "+map.sizeY);
         Util.getBiggest(map);
-        Asteroid station = map.getStation();
+        Asteroid station = map.getAndRemoveStation();
         Station stat = new Station(map, station);
-        Coords result = part2.destroy(stat, index);
+        Point result = part2.destroyAsteroids(stat, index);
         Assertions.assertEquals(expected, result.toString());
     }
 }

@@ -1,4 +1,4 @@
-package day9;
+package intcode;
 
 import java.util.LinkedList;
 

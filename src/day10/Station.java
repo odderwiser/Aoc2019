@@ -8,7 +8,7 @@ import java.util.*;
 public class Station {
     Asteroid station;
     Map mother;
-    HashMap<Direction, LinkedList<Asteroid>> shooting;
+    HashMap<Direction, LinkedList<Asteroid>> directionAsteroidsMap;
 
     /**
      * Create the object
@@ -18,15 +18,15 @@ public class Station {
     public Station(Map map, Asteroid station) {
         this.mother = map;
         this.station = station;
-        shooting = new HashMap<>();
-        assignAsteroids();
+        directionAsteroidsMap = new HashMap<>();
+        computeAsteroidDirections();
     }
 
     /**
      * Helper method for creating the station.
      * Assigns all asteroids from the map to a certain line of view (vector from the station Asteroid).
      */
-    private void assignAsteroids() {
+    private void computeAsteroidDirections() {
         for(Asteroid asteroid : mother.asteroids()) {
             //for every asteroid set distance to the station
 
@@ -37,11 +37,12 @@ public class Station {
 
                 //add new coordinates to the hashmap
                 LinkedList<Asteroid> asteroids = new LinkedList<>();
-                shooting.put(direction, asteroids);
+                directionAsteroidsMap.put(direction, asteroids);
                 asteroids.add(asteroid);
 
-                //make coords for traversing the map
-                Coords that = new Coords(asteroid.coords.x, asteroid.coords.y);
+                //make point for traversing the map
+                Point that = new Point(asteroid.point.x, asteroid.point.y);
+                //Add direction once to not find original point
                 that.add(direction);
 
                 //traverse the map searching for asteroids
@@ -58,20 +59,10 @@ public class Station {
      * Get the set of directions from the central station that contains asteroids
      * @return - ArrayList of sorted directions from smallest angle clockwise.
      */
-    public ArrayList<Direction> getKeySet() {
+    public ArrayList<Direction> getDirections() {
         //make arraylist from the keys of hasmpap and sort it
-        ArrayList<Direction> keys = new ArrayList<>(shooting.keySet());
+        ArrayList<Direction> keys = new ArrayList<>(directionAsteroidsMap.keySet());
         Collections.sort(keys);
-
-        //validating the sorting
-        for (int i = 0; i < keys.size(); i++) {
-            System.out.println("x: "+keys.get(i).x+" y: "+keys.get(i).y+" distance: "
-                    +keys.get(i).distance+" rotation: "+keys.get(i).getRotation());
-            for (Asteroid ast: shooting.get(keys.get(i))) {
-                System.out.print(ast.coords.toString()+", ");
-            }
-            System.out.print("\n");
-        }
         return keys;
     }
 
@@ -80,17 +71,15 @@ public class Station {
      * @param key - direction to be checked
      * @return - coordinates of the destroyed aasteroid
      */
-    public Coords destroy(Coords key) {
+    public Point destroyClosestAsteroid(Direction key) {
         //get list of asteroids, sorted from closest to furthest.
-        LinkedList<Asteroid> check = this.shooting.get(key);
+        LinkedList<Asteroid> check = this.directionAsteroidsMap.get(key);
         //remove first asteroid and retrieve it's coordinates/
-        Coords result = check.removeFirst().coords;
+        Point result = check.removeFirst().point;
         //if there are no more asteroids in given direction, remove the direction.
         if (check.size()==0) {
-            this.shooting.remove(key);
+            this.directionAsteroidsMap.remove(key);
         }
-        //validation
-        System.out.println("Deleted coords "+result.toString());
         return result;
     }
 }

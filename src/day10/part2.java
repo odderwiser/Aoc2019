@@ -7,26 +7,26 @@ public class part2 {
         Map map = Util.parseInput("resources/input10.txt");
         System.out.println(map.asteroids.values().size());
         Util.getBiggest(map);
-        Asteroid station = map.getStation();
+        Asteroid station = map.getAndRemoveStation();
         Station stat = new Station(map, station);
-        Coords result = destroy(stat, 200);
+        Point result = destroyAsteroids(stat, 200);
         System.out.println(result.toString());
 
     }
 
-    static Coords destroy(Station station, int index) {
+    static Point destroyAsteroids(Station station, int index) {
         int i = 1;
         while (i <= index) {
 
-            for (Coords coords: station.getKeySet()) {
+            for (Direction point : station.getDirections()) {
                 System.out.print(i+" ");
-                Coords result = station.destroy(coords);
+                Point result = station.destroyClosestAsteroid(point);
                 if (i == index) {
                     return result;
                 }
                 i++;
             }
         }
-        return new Coords(0,0);
+        return new Point(0,0);
     }
 }

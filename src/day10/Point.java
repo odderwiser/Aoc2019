@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents two dimentional directions and distance two some center coordinates
  */
-public class Coords {
+public class Point {
     int x;
     int y;
 
@@ -14,7 +14,7 @@ public class Coords {
      * @param x - x coordinate
      * @param y - y coordinate
      */
-    public Coords(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -28,9 +28,9 @@ public class Coords {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Coords coords = (Coords) o;
-        return x == coords.x &&
-                y == coords.y;
+        Point point = (Point) o;
+        return x == point.x &&
+                y == point.y;
     }
 
     @Override
@@ -39,14 +39,14 @@ public class Coords {
     }
 
     /**
-     * Get the smallest integer distance vector from here to coords other.
-     * @param other - other asteroid to which the vector is pointing
-     * @return - Coords of vector from here to other.
+     * Get the smallest integer distance vector from here to point from.
+     * @param dest - from asteroid to which the vector is pointing
+     * @return - Point of vector from here to from.
      */
-    public Direction getDirection(Coords other) {
-        Direction result = new Direction(other.x - this.x, other.y - this.y);
+    public Direction getDirection(Point dest) {
+        Direction result = new Direction(dest.x - this.x, dest.y - this.y);
 
-        //if they're on the same line
+        //if they're on the same axis, return unit vector of this axis
         if (result.x == 0) {
             return new Direction(0, Integer.signum(result.y));
         }
@@ -67,7 +67,7 @@ public class Coords {
      * @param n2 - number 2
      * @return - value of greatest common denominator.
      */
-    private int getGCD(int n1, int n2) {
+    private static int getGCD(int n1, int n2) {
         if (n2 == 0) {
             return n1;
         }

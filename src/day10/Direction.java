@@ -1,6 +1,6 @@
 package day10;
 
-public class Direction extends Coords implements Comparable<Direction>{
+public class Direction extends Point implements Comparable<Direction>{
 
     double distance;
 
@@ -12,13 +12,6 @@ public class Direction extends Coords implements Comparable<Direction>{
      */
     public Direction(int x, int y) {
         super(x, y);
-        setDistance();
-    }
-
-    /**
-     * Set distance between this coordinates and station
-     */
-    public void setDistance() {
         this.distance = Math.sqrt(Math.pow((this.x), 2)+ Math.pow((this.y), 2));
     }
 
@@ -28,18 +21,18 @@ public class Direction extends Coords implements Comparable<Direction>{
      * @return - Arbitrary value representing rotation.
      */
     public double getRotation() {
-        //if vector point to I quater
         if ((x >= 0) && (y < 0 )) {
+            //I quarter
             return (Math.abs(x)/distance);
 
         } else if ((x > 0) && (y >= 0)) {
-            //IV quater
+            //IV quarter
             return (1 + (Math.abs(y)/distance));
         } else if ((x <= 0)&& (y > 0)) {
-            //III quater
+            //III quarter
             return (2+ Math.abs(x)/distance);
         } else {
-            //II quater
+            //II quarter
             return (3+ Math.abs(y)/distance);
         }
     }

@@ -8,7 +8,7 @@ import java.util.Optional;
  * Represesnts an asteroid
  */
 public class Asteroid {
-    Coords coords;
+    Point point;
     HashSet<Asteroid> invisible;
     Map mother;
 
@@ -19,7 +19,7 @@ public class Asteroid {
      * @param mother - map that created the asteroid.
      */
     public Asteroid(int x, int y, Map mother) {
-        coords = new Coords(x, y);
+        point = new Point(x, y);
         invisible = new HashSet<>(Collections.singletonList(this));
         this.mother = mother;
     }
@@ -41,14 +41,14 @@ public class Asteroid {
      * @param other - other asteroid, implicitly visible.
      */
     public void checkCovering(Asteroid other) {
-        Coords that = new Coords(other.coords.x, other.coords.y);
+        Point that = new Point(other.point.x, other.point.y);
         //get the smallest direction vector from this to other
-        Direction between = this.coords.getDirection(that);
+        Direction between = this.point.getDirection(that);
         that.add(between);
 
         //while new coordinates are still on map:
         while(mother.inRange(that)) {
-            //check if there is an asteroid with given coords, if yes, make invisible.
+            //check if there is an asteroid with given point, if yes, make invisible.
             Optional<Asteroid> check= mother.get(that);
             if (check.isPresent()) {
                 other = check.get();
@@ -65,8 +65,7 @@ public class Asteroid {
      * @return - Relative coordinates of direction - vector pointing from this to other.
      */
     public Direction getDirection(Asteroid other) {
-        Direction result = this.coords.getDirection(other.coords);
-        return result;
+        return this.point.getDirection(other.point);
     }
 
 }
