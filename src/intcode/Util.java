@@ -1,5 +1,7 @@
 package intcode;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -20,7 +22,12 @@ public class Util {
      */
     static long[] parseInput(String inputFile) {
         //retrieve and parse the input to array of strings
-        Scanner scanner = new Scanner(inputFile);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File(inputFile));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         String[] stringcode = scanner.nextLine().split(",");
 
         //parse into array of longs
@@ -37,7 +44,7 @@ public class Util {
      * @param input = initializing value for instruction 3
      * @return - the value outputed by instruction 4
      */
-    static ResultTuple solve(LinkedList<Long> input){
+    public static ResultTuple solve(LinkedList<Long> input){
         //initialize pointer with 0 and loop over the input instructions
         ResultTuple result = new ResultTuple();
         while (index < intcode.length) {

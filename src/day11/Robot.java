@@ -5,18 +5,28 @@ public class Robot {
     Direction direction;
     Map map;
 
-    public Robot() {
+    public Robot(Color startColor) {
         this.map = new Map();
         this.location = new Point(0, 0);
-        map.add(location);
-        this.direction = new Direction(0, 1);
+        map.set(location, startColor);
+        this.direction = Direction.NORTH;
     }
 
-    public void move(boolean turnDir) {
-        if (turnDir) {
-            direction.turnRight();
-            location.add(direction);
-            map.add(direction);
-        }
+    public void move(TurnDirection turnDir) {
+        direction = direction.turn(turnDir);
+        location = location.add(direction);
+    }
+
+    public int countPainted() {
+        return map.countPainted();
+    }
+
+    public void paint (Color color) {
+        map.set(location, color);
+    }
+
+    public Color getColor() {
+        if (!map.points.containsKey(location)) return Color.BLACK;
+        return map.points.get(location);
     }
 }

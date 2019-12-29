@@ -6,7 +6,7 @@ public class ResultTuple {
     LinkedList<Long> value;
     private boolean finished;
 
-    ResultTuple() {
+    public ResultTuple() {
         this.value = new LinkedList<>();
         finished = false;
     }
@@ -27,7 +27,7 @@ public class ResultTuple {
         return (value.size()>0);
     }
 
-    boolean isFinished() {
+    public boolean isFinished() {
         return finished;
     }
 

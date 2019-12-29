@@ -228,7 +228,6 @@ class Instruction {
             c = 0;
         }
         int index = get(params[2].execute(i+2));
-        System.out.println("Wrong index: "+index);
         intcode[index] = (long) c;
         return i+3;
     }

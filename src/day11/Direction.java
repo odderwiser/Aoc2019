@@ -1,32 +1,43 @@
 package day11;
 
-public class Direction extends Point{
+public enum Direction {
+    NORTH(0, 1),
+    EAST(1, 0),
+    SOUTH(0, -1),
+    WEST(-1, 0);
 
-    public Direction(int x, int y) {
-        super(x, y);
+    int x;
+    int y;
+    Direction(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public void turnRight() {
-        int xNext = 0;
-        int yNext = 0;
-        if (this.x == 0) {
-            xNext = this.y;
-        } else {
-            yNext =  - this.x;
+    public Direction turn(TurnDirection dir) {
+        if(dir == TurnDirection.LEFT){
+            return left();
+        }else {
+            return right();
         }
-        this.x = xNext;
-        this.y = yNext;
     }
 
-    public void turnLeft() {
-        int xNext = 0;
-        int yNext = 0;
-        if (this.x == 0) {
-            xNext = - this.y;
-        } else {
-            yNext = this.x;
+    public Direction left() {
+        switch(this) {
+            case NORTH: return WEST;
+            case EAST: return NORTH;
+            case SOUTH: return EAST;
+            case WEST: return SOUTH;
         }
-        this.x = xNext;
-        this.y = yNext;
+        return null;
+    }
+
+    public Direction right() {
+        switch(this) {
+            case NORTH: return EAST;
+            case EAST: return SOUTH;
+            case SOUTH: return WEST;
+            case WEST: return NORTH;
+        }
+        return null;
     }
 }
