@@ -24,7 +24,7 @@ class Instruction {
         this.result = result;
         this.intcode = intcode;
         this.input = input;
-        this.sizes = Util.sizes;
+        this.sizes = Intcode.sizes;
         this.relativeBase = relativeBase;
         parseOpCode(value);
     }
