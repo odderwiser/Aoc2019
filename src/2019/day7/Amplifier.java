@@ -1,7 +1,6 @@
 package day7;
 
 import java.util.LinkedList;
-import java.util.Optional;
 
 /**
  * Represents amplifier, has own instructions and counter

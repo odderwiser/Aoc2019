@@ -9,7 +9,7 @@ public class testPart2 {
 
     @Test
     public void test1_4() {
-        Map map = Util.parseInput("../resources/input10_1_04.txt");
+        Map map = Util.parseInput("2019/input10_1_04.txt");
         System.out.println(map.sizeX +" "+map.sizeY);
         Util.getBiggest(map);
         Asteroid station = map.getAndRemoveStation();
@@ -20,7 +20,7 @@ public class testPart2 {
 
     @Test
     public void test2_01() {
-        Map map = Util.parseInput("../resources/input10_2_01.txt");
+        Map map = Util.parseInput("2019/input10_2_01.txt");
         System.out.println(map.sizeX +" "+map.sizeY);
         Util.getBiggest(map);
         Asteroid station = map.getAndRemoveStation();
@@ -43,7 +43,7 @@ public class testPart2 {
 
     @ParameterizedTest
     public void test2_02(int index, String expected) {
-        Map map = Util.parseInput("../resources/input10_2_01.txt");
+        Map map = Util.parseInput("2019/input10_2_01.txt");
         System.out.println(map.sizeX +" "+map.sizeY);
         Util.getBiggest(map);
         Asteroid station = map.getAndRemoveStation();

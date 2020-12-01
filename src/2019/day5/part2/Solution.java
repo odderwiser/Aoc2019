@@ -13,7 +13,7 @@ public class Solution {
      */
     public static void main(String[] args) {
         //retrieve and parse the input to array of strings
-        Scanner scanner = new Scanner(Solution.class.getResourceAsStream("/day5/input5.txt"));
+        Scanner scanner = new Scanner(Solution.class.getResourceAsStream("/2019/day5/input5.txt"));
         String[] stringcode = scanner.nextLine().split(",");
 
         //parse into array of Integers

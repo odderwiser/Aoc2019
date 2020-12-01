@@ -3,7 +3,6 @@ package day7;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Optional;
 
 public class part2 {
     private static Integer[] inputArray = {5, 6, 7, 8, 9};

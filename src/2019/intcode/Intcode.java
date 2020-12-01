@@ -2,12 +2,11 @@ package intcode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Intcode {
-    int[] sizes = { 0, 3, 3, 1, 1, 2, 2, 3, 3, 1 };
+    static int[] sizes = { 0, 3, 3, 1, 1, 2, 2, 3, 3, 1 };
     private int relativeBase = 0;
     private long[] intcode;
     private int index = 0;
@@ -43,11 +42,11 @@ public class Intcode {
      * @param input = initializing value for instruction 3
      * @return - the value outputed by instruction 4
      */
-    public ResultTuple solve(LinkedList<Long> input){
+    public intcode.ResultTuple solve(LinkedList<Long> input){
         //initialize pointer with 0 and loop over the input instructions
-        ResultTuple result = new ResultTuple();
+        intcode.ResultTuple result = new intcode.ResultTuple();
         while (index < intcode.length) {
-            Instruction command = new Instruction(intcode[index], intcode, result, input, relativeBase);
+            intcode.Instruction command = new intcode.Instruction(intcode[index], intcode, result, input, relativeBase);
             index++;
             index = command.execute(index);
             relativeBase += command.getUpdateValue();

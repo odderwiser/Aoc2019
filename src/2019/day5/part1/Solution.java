@@ -7,7 +7,7 @@ public class Solution {
     static int input = 1;
 
     public static void main(String[] args) {
-        scanner = new Scanner(Solution.class.getResourceAsStream("/day5/input5.txt"));
+        scanner = new Scanner(Solution.class.getResourceAsStream("/2019/day5/input5.txt"));
         String[] stringcode = scanner.nextLine().split(",");
         Integer[] intcode = new Integer[stringcode.length];
         for (int i = 0; i < intcode.length; i++) {

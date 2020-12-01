@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Solution {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(Solution.class.getResourceAsStream("/day8/input8.txt"));
+        Scanner scanner = new Scanner(Solution.class.getResourceAsStream("/2019/day8/input8.txt"));
         char[] input = scanner.nextLine().toCharArray();
         ArrayList<Layer> layers = parseInput(input);
         int index = getLayer(layers);

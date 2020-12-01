@@ -1,7 +1,5 @@
 package day11;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 public enum TurnDirection {
     LEFT,
     RIGHT;

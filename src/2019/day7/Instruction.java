@@ -1,31 +1,27 @@
-package intcode;
+package day7;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 class Instruction {
     private int opcode;
     private Param[] params;
-    long[] intcode;
+    private Integer[] intcode;
     private ResultTuple result;
-    private LinkedList<Long> input;
+    private LinkedList<Integer> input;
     private int[] sizes;
-    private int relativeBase;
-    private int updateValue = 0;
     /**
      * This is the method constructor.
-     * @param value - long representing the opcode
+     * @param value - integer representing the opcode
      * @param intcode - array of all instructions
      * @param result - array that encapsulates reasult, if it is created
      * @param input - initialise value for instruction 3
      */
-    Instruction(long value, long[] intcode, ResultTuple result,
-                LinkedList<Long> input, int relativeBase) {
+    Instruction(Integer value, Integer[] intcode, ResultTuple result,
+                LinkedList<Integer> input) {
         this.result = result;
         this.intcode = intcode;
         this.input = input;
-        this.sizes = Intcode.sizes;
-        this.relativeBase = relativeBase;
+        this.sizes = Solution.sizes;
         parseOpCode(value);
     }
 
@@ -33,21 +29,21 @@ class Instruction {
      * This is the method to parse opcode and retrieve instruction details
      * @param value - the value of opcode
      */
-    private void parseOpCode(long value) {
+    private void parseOpCode(Integer value) {
         //parse value of opcode to string
-        String val = Long.toString(value);
+        String val = value.toString();
 
         //retrieve the instruction number
         int length = val.length()-2;
         if(val.length()>1) {
             this.opcode = Integer.parseInt(val.substring(length));
         } else {
-            this.opcode = ((int)  value);
+            this.opcode = value;
         }
         length--;
 
         //determine the amount of parameters
-        if (opcode < 10) {
+        if (opcode < 9) {
             params = new Param[sizes[opcode]];
         } else {
             params = new Param[0];
@@ -56,10 +52,10 @@ class Instruction {
         //initialise parameters with proper modes
         for (int i = 0; i < params.length; i++) {
             if (length >= 0) {
-                params[i] = new Param((val.charAt(length)-'0'), relativeBase, this);
+                params[i] = new Param((val.charAt(length)-'0'), intcode);
                 length--;
             } else {
-                params[i] = new Param(0, relativeBase, this);
+                params[i] = new Param(0, intcode);
             }
         }
     }
@@ -95,9 +91,6 @@ class Instruction {
             case 8:
                 i = codeEight(i);
                 break;
-            case 9:
-                i = codeNine(i);
-                break;
             case 99:
                 //end the program
                 System.out.println("opcode 99");
@@ -121,12 +114,11 @@ class Instruction {
      */
     private int codeOne(int i) {
         //determine values of parameters
-        int index = get(params[0].execute(i));
-        long a = intcode[index];
-        long b = intcode[get(params[1].execute(i+1))];
+        int a = intcode[params[0].execute(i)];
+        int b = intcode[params[1].execute(i+1)];
 
         //store the value
-        intcode[get(params[2].execute(i+2))] = (a + b);
+        intcode[intcode[i+2]] = (a + b);
         return i+3;
     }
 
@@ -138,12 +130,11 @@ class Instruction {
      */
     private int codeTwo(int i) {
         //determine the value of both parameters
-        long a = intcode[get(params[0].execute(i))];
-        long b = intcode[get(params[1].execute(i+1))];
+        int a = intcode[params[0].execute(i)];
+        int b = intcode[params[1].execute(i+1)];
 
         //store the results
-        int address = get(params[2].execute(i+2));
-        intcode[address] = (a * b);
+        intcode[intcode[i + 2]] = (a * b);
         return i+3;
     }
 
@@ -154,8 +145,7 @@ class Instruction {
      * @return - updated instruction pointer
      */
     private int codeThree(int i) {
-        int index = get(params[0].execute(i));
-        intcode[index] = input.pollFirst();
+        intcode[intcode[i]] = input.pollFirst();
         System.out.println("input taken");
         return i+1;
     }
@@ -167,8 +157,7 @@ class Instruction {
      * @return - updated instruction pointer
      */
     private int codeFour(int i) {
-        int index = get(params[0].execute(i));
-        long output = intcode[index];
+        int output = intcode[params[0].execute(i)];
         result.set(output);
         System.out.println("The output is: "+output);
         return i+1;
@@ -183,12 +172,12 @@ class Instruction {
      */
     private int codeFive(int i) {
         //retrieve parameter values
-        long a = intcode[get(params[0].execute(i))];
-        long b = intcode[get(params[1].execute(i+1))];
+        int a = intcode[params[0].execute(i)];
+        int b = intcode[params[1].execute(i+1)];
 
         //determine result
         if (a!= 0) {
-            return (int) b;
+            return b;
         }
         return i+2;
     }
@@ -201,12 +190,12 @@ class Instruction {
      */
     private int codeSix(int i) {
         //retrieve parameter values
-        long a = intcode[get(params[0].execute(i))];
-        long b = intcode[get(params[1].execute(i+1))];
+        int a = intcode[params[0].execute(i)];
+        int b = intcode[params[1].execute(i+1)];
 
         //determine result
         if (a == 0) {
-            return (int) b;
+            return b;
         }
         else return i+2;
     }
@@ -219,16 +208,15 @@ class Instruction {
      * @return - instruction pointer pointing to the next instruction opcode
      */
     private int codeSeven(int i) {
-        long a = intcode[get(params[0].execute(i))];
-        long b = intcode[get(params[1].execute(i+1))];
+        int a = intcode[params[0].execute(i)];
+        int b = intcode[params[1].execute(i+1)];
         int c;
         if (a < b) {
             c = 1;
         } else {
             c = 0;
         }
-        int index = get(params[2].execute(i+2));
-        intcode[index] = (long) c;
+        intcode[intcode[i+2]] = c;
         return i+3;
     }
 
@@ -241,8 +229,8 @@ class Instruction {
      */
     private int codeEight(int i) {
         //retrieve the parameters
-        long a = intcode[get(params[0].execute(i))];
-        long b = intcode[get(params[1].execute(i+1))];
+        int a = intcode[params[0].execute(i)];
+        int b = intcode[params[1].execute(i+1)];
         int c;
 
         //determine the result
@@ -252,29 +240,7 @@ class Instruction {
             c = 0;
         }
         //store the result
-        intcode[get(params[2].execute(i+2))] = (long) c;
+        intcode[intcode[i+2]] = c;
         return i+3;
-    }
-
-    private int get(long index) {
-        if (intcode.length <= index) {
-            this.intcode = Arrays.copyOf(intcode, Math.max(2*intcode.length,((int) index+10)));
-        }
-        return ((int) index);
-    }
-
-    private int codeNine(int i) {
-        this.updateValue = (int) intcode[get(params[0].execute(i))];
-        return i+1;
-
-    }
-
-    public int getUpdateValue() {
-        return this.updateValue;
-    }
-
-    public int getValue(int index) {
-        int address = get(index);
-        return (int) intcode[address];
     }
 }
