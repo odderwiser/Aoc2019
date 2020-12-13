@@ -4,7 +4,7 @@ public class Bag {
     private long number;
     private String name;
 
-    Bag(int num, String name) {
+    Bag(long num, String name) {
         this.number = num;
         this.name = name;
     }
@@ -18,7 +18,6 @@ public class Bag {
     }
 
     Bag multiply(Bag other) {
-        this.number *=other.number;
-        return this;
+        return new Bag(this.number*other.number, this.name);
     }
 }

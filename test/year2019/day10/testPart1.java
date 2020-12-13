@@ -8,7 +8,7 @@ public class testPart1 {
 
     @Test
     public void test1_1() {
-        Map map = Util.parseInput("2019/input_10_1_01.txt");
+        Map map = Util.parseInput("testResources/input_10_1_01.txt");
         System.out.println(map.sizeX +" "+map.sizeY);
         int result = Util.getBiggest(map);
         Assertions.assertEquals(33, result);
@@ -16,7 +16,7 @@ public class testPart1 {
 
     @Test
     public void test1_2() {
-        Map map = Util.parseInput("2019/input10_1_02.txt");
+        Map map = Util.parseInput("resources/year2019/input10_1_02.txt");
         System.out.println(map.sizeX +" "+map.sizeY);
         int result = Util.getBiggest(map);
         Assertions.assertEquals(35, result);

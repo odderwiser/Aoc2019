@@ -8,6 +8,9 @@ public class Util {
 
     public static Map parseInput(String filename) {
         try {
+            File currentDirFile = new File(".");
+            String p = currentDirFile.getAbsolutePath();
+            System.out.println(p);
             Scanner scan = new Scanner(new File(filename));
             Map result = new Map();
             int y = 0;
@@ -23,6 +26,7 @@ public class Util {
             return result;
         } catch (FileNotFoundException e) {
             System.out.println("you tried");
+            e.printStackTrace();
             return null;
         }
     }
