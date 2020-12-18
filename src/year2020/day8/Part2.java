@@ -1,5 +1,7 @@
 package year2020.day8;
 
+import year2020.IntBox;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -37,8 +39,8 @@ public class Part2 {
             }
         }
         System.out.println("got to this part");
-        IntNode result = new IntNode(0);
-        IntNode counter = new IntNode(0);
+        IntBox result = new IntBox(0);
+        IntBox counter = new IntBox(0);
         while(!instructions.get(counter.value).isVisited()) {
             instructions.get(counter.value).execute(counter, result);
         }
@@ -50,8 +52,8 @@ public class Part2 {
             instruction.tail = true;
             queue.addAll(instruction.previous.stream().filter(x -> !x.tail).collect(Collectors.toList()));
         }
-        result = new IntNode(0);
-        counter = new IntNode(0);
+        result = new IntBox(0);
+        counter = new IntBox(0);
         System.out.println("got to this part");
         boolean unloopFound = false;
         while (counter.value < instructions.size()) {

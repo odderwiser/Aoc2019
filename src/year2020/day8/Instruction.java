@@ -1,6 +1,8 @@
 package year2020.day8;
 
 
+import year2020.IntBox;
+
 import java.util.ArrayList;
 
 public class Instruction {
@@ -48,7 +50,7 @@ public class Instruction {
         this.name = "nop";
     }
 
-    void execute(IntNode counter, IntNode value) {
+    void execute(IntBox counter, IntBox value) {
         //System.out.println(this.name+" "+this.value);
         this.visited=true;
         if (name.equals("nop")) {

@@ -1,5 +1,7 @@
 package year2020.day8;
 
+import year2020.IntBox;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -19,8 +21,8 @@ public class Part1 {
             String[] line = scanner.nextLine().split(" ");
             instructions.add(new Instruction(line[0], Integer.parseInt(line[1])));
         }
-        IntNode result = new IntNode(0);
-        IntNode counter = new IntNode(0);
+        IntBox result = new IntBox(0);
+        IntBox counter = new IntBox(0);
         while(!instructions.get(counter.value).isVisited()) {
             instructions.get(counter.value).execute(counter, result);
         }
